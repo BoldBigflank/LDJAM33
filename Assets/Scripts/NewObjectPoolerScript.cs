@@ -57,6 +57,7 @@ public class NewObjectPoolerScript : MonoBehaviour {
 		List<GameObject> pool = GetPool (prefabName);
 		if(pool == null){
 			Debug.Log ("Pool not found: " + prefabName);
+			
 			return null;
 		}
 		for(int i = 0; i < pool.Count; i++){
