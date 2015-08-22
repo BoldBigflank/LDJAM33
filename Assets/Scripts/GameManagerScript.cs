@@ -52,13 +52,22 @@ public class GameManagerScript : MonoBehaviour {
 		float dist = fwd.magnitude;
 		
 		if(Physics.Raycast (cameraPosition, fwd, out hit, dist)){
-			Debug.Log ("Hit something" + hit.point);
+			Debug.Log ("Hit something" + hit.rigidbody.worldCenterOfMass);
 			Debug.DrawRay(cameraPosition, fwd, Color.red, 1.0F );
 			Transform objectHit = hit.transform;
 			
 			// If the objectHit is in the current globe
-			player.transform.position = hit.point; // hit.rigidbody.centerOfMass;
-			player.transform.LookAt(Vector3.zero);
+			// TODO: globes[0] to globes[currentGlobeIndex]
+			// TODO: lossyScale.x to multiply every axis individually
+			// TODO: LANDING PAD might have strange angles, fix it.
+			
+			if(hit.transform.FindChild("LandingPad")){
+				Vector3 lookPosition = player.transform.position - hit.transform.FindChild("LandingPad").position;
+				player.transform.position = hit.transform.FindChild("LandingPad").position;
+				player.transform.LookAt(lookPosition, mainCamera.transform.position);
+				
+			}
+//			player.transform.position = hit.rigidbody.worldCenterOfMass;
 			Debug.Log ("Center" + hit.rigidbody.centerOfMass);
 			 
 		}
