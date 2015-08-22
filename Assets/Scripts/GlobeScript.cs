@@ -47,6 +47,22 @@ public class GlobeScript : MonoBehaviour {
 			mirrorHexagon.SetActive(true);
 		}
 		
+		for (int j = 1; j < 5; j++){
+			GameObject hexagon = NewObjectPoolerScript.current.Spawn(hexagonPrefabName);
+			hexagon.transform.parent = transform;
+			hexagon.transform.localRotation = Quaternion.Euler(hexagonRotations[hexagonRotations.Length-1]);
+			hexagon.transform.RotateAround(Vector3.zero, Vector3.forward, 72.0F * j);
+			hexagon.transform.localScale = 1.0F * Vector3.one;
+			hexagon.SetActive(true);
+			
+			GameObject mirrorHexagon = NewObjectPoolerScript.current.Spawn(hexagonPrefabName);
+			mirrorHexagon.transform.parent = transform;
+			mirrorHexagon.transform.localRotation = Quaternion.Euler(hexagonRotations[hexagonRotations.Length-1]);
+			mirrorHexagon.transform.RotateAround(Vector3.zero, Vector3.forward, 72.0F * j);
+			mirrorHexagon.transform.localScale = -1.0F * Vector3.one;
+			mirrorHexagon.SetActive(true);
+		}
+		
 	}
 	
 	// Update is called once per frame
